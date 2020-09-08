@@ -34,10 +34,10 @@ const greeterCtor = grpcObj.greet.Greeter;
 
 export const unitFoldersServiceClient = new greeterCtor("localhost:3002", grpc.ChannelCredentials.createInsecure());
 
-// unitFoldersServiceClient.SayHello({ name: "olle" }, (error: any, result: any) => {
-//   console.log("_error", error);
-//   console.log("_result", result);
-// });
+unitFoldersServiceClient.SayHello({ name: "olle" }, (error: any, result: any) => {
+  console.log("_error", error);
+  console.log("_result", result);
+});
 
 unitFoldersServiceClient.SayBye({ name: "olle" }, (error: any, result: any) => {
   console.log("_error", error);

@@ -49,7 +49,8 @@ export function monkeyPatchPackageDefWithTsProtoSerializers(
           },
           requestDeserialize: (bytes: Buffer): object => {
             console.log("requestDeserialize", bytes);
-            return tsProtoRequest.toJSON(tsProtoRequest.decode(bytes)) as object;
+            // return tsProtoRequest.toJSON(tsProtoRequest.decode(bytes)) as object;
+            return tsProtoRequest.decode(bytes) as object;
           },
           responseSerialize: (value: any): Buffer => {
             console.log("responseSerialize", value);
@@ -59,7 +60,8 @@ export function monkeyPatchPackageDefWithTsProtoSerializers(
           },
           responseDeserialize: (bytes: Buffer): object => {
             console.log("responseDeserialize");
-            return tsProtoResponse.toJSON(tsProtoResponse.decode(bytes)) as object;
+            // return tsProtoResponse.toJSON(tsProtoResponse.decode(bytes)) as object;
+            return tsProtoResponse.decode(bytes) as object;
           },
         };
         // Do the monkey patch
