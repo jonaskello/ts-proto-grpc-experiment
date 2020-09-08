@@ -2,7 +2,7 @@ import path from "path";
 import * as ProtoLoader from "@grpc/proto-loader";
 import * as grpc from "@grpc/grpc-js";
 import * as TsProtoGreeter from "./proto/greeter";
-import { monkeyPatchPackageDefWithTsProtoSerializers, TsProtoPackages } from "./monkey-patch";
+import { monkeyPatchPackageDefWithTsProtoSerializers, TsProtoPackages, PatchServiceImpl } from "./monkey-patch";
 
 const PROTO_OPTIONS = {
   keepCase: true,
@@ -31,12 +31,14 @@ const grpcObj = grpc.loadPackageDefinition(packageDefinition) as any;
 const serviceDef = grpcObj.greet.Greeter.service;
 
 // Create service implementation
-const serviceImpl /*: Greeter*/ = {
+const serviceImpl: PatchServiceImpl<TsProtoGreeter.Greeter> = {
   SayHello(call: any, callback: any) {
     console.log("SayHelloSayHello", call.request);
     callback(null, { message: "dsfadf" });
   },
 };
+
+export type olle = typeof serviceImpl;
 
 // Create server
 const server = new grpc.Server();
