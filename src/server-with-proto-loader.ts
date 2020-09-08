@@ -1,9 +1,7 @@
 import path from "path";
 import * as ProtoLoader from "@grpc/proto-loader";
 import * as grpc from "@grpc/grpc-js";
-import { customPackageDefinition } from "./packdef";
-import { Greeter } from "./proto/greeter";
-/*
+
 const PROTO_OPTIONS = {
   keepCase: true,
   longs: String,
@@ -18,9 +16,6 @@ const PROTO_PATH = path.resolve(
   path.join(__dirname, "../src/proto/greeter.proto")
 );
 const packageDefinition = ProtoLoader.loadSync(PROTO_PATH, PROTO_OPTIONS);
-*/
-
-const packageDefinition = customPackageDefinition;
 
 console.log("packageDefinition", packageDefinition);
 
