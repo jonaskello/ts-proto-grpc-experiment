@@ -21,29 +21,19 @@ monkeyPatchPackageDefWithTsProtoSerializers(packageDefinition, {
   greet: TsProtoGreeter,
 });
 
-// Load package def
+// console.log("packageDefinition", packageDefinition);
+
 const grpcObj = grpc.loadPackageDefinition(packageDefinition) as any;
 
-// Get service definition
-const serviceDef = grpcObj.greet.Greeter.service;
+const greeterCtor = grpcObj.greet.Greeter;
 
-// Create service implementation
-const serviceImpl /*: Greeter*/ = {
-  SayHello(call: any, callback: any) {
-    console.log("SayHelloSayHello", call.request);
-    callback(null, { message: "dsfadf" });
-  },
-};
+// console.log("greeterCtor", greeterCtor);
 
-// Create server
-const server = new grpc.Server();
+export const unitFoldersServiceClient = new greeterCtor("localhost:3002", grpc.ChannelCredentials.createInsecure());
 
-// Add the service
-server.addService(serviceDef, serviceImpl);
-
-// Start server
-const port = 3002;
-console.log(`Listening on ${port}`);
-server.bindAsync(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure(), () => {
-  server.start();
+const xxx = unitFoldersServiceClient.SayHello({ name: "olle" }, (error: any, result: any) => {
+  console.log("_error", error);
+  console.log("_result", result);
 });
+
+// console.log("xxx", xxx);
