@@ -1,33 +1,26 @@
+import path from "path";
+import * as ProtoLoader from "@grpc/proto-loader";
 import * as grpc from "@grpc/grpc-js";
-import { loadProtoToPackageDefinition } from "./load-proto";
+import { customPackageDefinition } from "./packdef";
 
-// const packageDefinition = loadProtoToPackageDefinition();
-
-const packageDefinition = {
-  "greet.Greeter": {
-    SayHello: {
-      path: "/greet.Greeter/SayHello",
-      requestStream: false,
-      responseStream: false,
-      requestSerialize: (value: any): Buffer => {
-        console.log("requestSerialize");
-        return undefined as any;
-      },
-      requestDeserialize: (value: any): Buffer => {
-        console.log("requestDeserialize");
-        return undefined as any;
-      },
-      responseSerialize: (value: any): Buffer => {
-        console.log("responseSerialize");
-        return undefined as any;
-      },
-      responseDeserialize: (value: any): Buffer => {
-        console.log("responseDeserialize");
-        return undefined as any;
-      },
-    } as grpc.MethodDefinition<any, any>,
-  },
+/*
+const PROTO_OPTIONS = {
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: false,
+  oneofs: true,
 };
+
+// Load proto
+const PROTO_PATH = path.resolve(
+  __dirname,
+  path.join(__dirname, "../src/proto/greeter.proto")
+);
+const packageDefinition = ProtoLoader.loadSync(PROTO_PATH, PROTO_OPTIONS);
+*/
+
+const packageDefinition = customPackageDefinition;
 
 console.log("packageDefinition", packageDefinition);
 
