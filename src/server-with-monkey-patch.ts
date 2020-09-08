@@ -32,13 +32,11 @@ const serviceDef = grpcObj.greet.Greeter.service;
 
 // Create service implementation
 const serviceImpl: PatchServiceImpl<TsProtoGreeter.Greeter> = {
-  SayHello(call: any, callback: any) {
+  SayHello(call, callback) {
     console.log("SayHelloSayHello", call.request);
     callback(null, { message: "dsfadf" });
   },
 };
-
-export type olle = typeof serviceImpl;
 
 // Create server
 const server = new grpc.Server();
