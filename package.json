@@ -11,6 +11,7 @@
   "scripts": {
     "server-with-custom-package-def": "yarn build && node ./lib/server-with-custom-package-def.js",
     "server-with-proto-loader": "yarn build && node ./lib/server-with-proto-loader.js",
+    "server-with-monkey-patch": "yarn build && node ./lib/server-with-monkey-patch.js",
     "client-with-custom-package-def": "yarn build && node ./lib/client-with-custom-package-def.js",
     "build": "tsc -p .",
     "clean": "rm -rf lib",
