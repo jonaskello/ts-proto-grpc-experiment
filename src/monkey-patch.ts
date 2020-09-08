@@ -44,17 +44,18 @@ export function monkeyPatchPackageDefWithTsProtoSerializers(
         const tsProtoSerializers = {
           requestSerialize(value: any): Buffer {
             console.log("requestSerialize");
-            const message = tsProtoRequest.fromJSON(value);
-            return tsProtoRequest.encode(message).finish() as Buffer;
+            // const message = tsProtoRequest.fromJSON(value);
+            return tsProtoRequest.encode(value).finish() as Buffer;
           },
           requestDeserialize: (bytes: Buffer): object => {
             console.log("requestDeserialize", bytes);
             return tsProtoRequest.toJSON(tsProtoRequest.decode(bytes)) as object;
           },
           responseSerialize: (value: any): Buffer => {
-            console.log("responseSerialize");
-            const message = tsProtoResponse.fromJSON(value);
-            return tsProtoResponse.encode(message).finish() as Buffer;
+            console.log("responseSerialize", value);
+            // const message = tsProtoResponse.fromJSON(value);
+            // console.log("responseSerialize -- after fromJSON", message);
+            return tsProtoResponse.encode(value).finish() as Buffer;
           },
           responseDeserialize: (bytes: Buffer): object => {
             console.log("responseDeserialize");

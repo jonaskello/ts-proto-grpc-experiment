@@ -33,8 +33,12 @@ const serviceDef = grpcObj.greet.Greeter.service;
 // Create service implementation
 const serviceImpl: PatchServiceImpl<TsProtoGreeter.Greeter> = {
   SayHello(call, callback) {
-    console.log("SayHelloSayHello", call.request);
+    console.log("SayHello", call.request);
     callback(null, { message: "dsfadf" });
+  },
+  SayBye(call, callback) {
+    console.log("SayBye", call.request);
+    callback(null, { message: { $case: "bye", bye: "sadfd" } });
   },
 };
 

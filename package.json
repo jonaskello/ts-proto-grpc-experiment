@@ -16,7 +16,7 @@
     "client-with-monkey-patch": "yarn build && node ./lib/client-with-monkey-patch.js",
     "build": "tsc -p .",
     "clean": "rm -rf lib",
-    "proto": "grpc_tools_node_protoc --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. ./src/proto/greeter.proto --ts_proto_opt=outputClientImpl=false"
+    "proto": "grpc_tools_node_protoc --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. ./src/proto/greeter.proto --ts_proto_opt=outputClientImpl=false,oneof=unions"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.1.5"
