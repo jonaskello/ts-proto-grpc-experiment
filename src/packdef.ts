@@ -1,15 +1,6 @@
 import * as grpc from "@grpc/grpc-js";
 import { HelloRequest, HelloReply } from "./proto/greeter";
 
-function deserialize(argBuf: Buffer): unknown {
-  return HelloRequest.toJSON(HelloRequest.decode(argBuf));
-}
-
-function serialize(arg: object): Buffer {
-  const message = HelloReply.fromJSON(arg);
-  return HelloReply.encode(message).finish() as Buffer;
-}
-
 export const customPackageDefinition = {
   "greet.Greeter": {
     SayHello: {
@@ -18,19 +9,21 @@ export const customPackageDefinition = {
       responseStream: false,
       requestSerialize: (value: any): Buffer => {
         console.log("requestSerialize");
-        return serialize(value);
+        const message = HelloRequest.fromJSON(value);
+        return HelloRequest.encode(message).finish() as Buffer;
       },
       requestDeserialize: (bytes: Buffer): unknown => {
         console.log("requestDeserialize", bytes);
-        return deserialize(bytes);
+        return HelloRequest.toJSON(HelloRequest.decode(bytes));
       },
       responseSerialize: (value: any): Buffer => {
         console.log("responseSerialize");
-        return serialize(value);
+        const message = HelloReply.fromJSON(value);
+        return HelloReply.encode(message).finish() as Buffer;
       },
       responseDeserialize: (bytes: Buffer): unknown => {
         console.log("responseDeserialize");
-        return serialize(bytes);
+        return HelloReply.toJSON(HelloReply.decode(bytes));
       },
     } as grpc.MethodDefinition<any, any>,
   },

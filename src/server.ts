@@ -2,7 +2,7 @@ import path from "path";
 import * as ProtoLoader from "@grpc/proto-loader";
 import * as grpc from "@grpc/grpc-js";
 import { customPackageDefinition } from "./packdef";
-
+import { Greeter } from "./proto/greeter";
 /*
 const PROTO_OPTIONS = {
   keepCase: true,
@@ -28,7 +28,7 @@ const grpcObj = grpc.loadPackageDefinition(packageDefinition) as any;
 
 const serviceDef = grpcObj.greet.Greeter.service;
 
-const serviceImpl = {
+const serviceImpl /*: Greeter*/ = {
   SayHello(call: any, callback: any) {
     console.log("SayHelloSayHello", call.request);
     callback(null, { message: "dsfadf" });
