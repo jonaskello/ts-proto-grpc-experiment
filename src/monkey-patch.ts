@@ -1,8 +1,7 @@
 import * as ProtoLoader from "@grpc/proto-loader";
-import * as grpc from "@grpc/grpc-js";
 import { Writer, Reader } from "protobufjs/minimal";
 
-type TsProtoPackages = { [packageName: string]: any };
+export type TsProtoPackages = { [packageName: string]: any };
 
 type TsProtoMessage<TMessage> = {
   encode: (message: TMessage, writer?: Writer) => Writer;
@@ -18,7 +17,7 @@ export function monkeyPatchPackageDefWithTsProtoSerializers(
   for (const [topKey, anyDef] of Object.entries(packageDefinition)) {
     // Only patch service definitions
     if (isServiceDefinition(anyDef)) {
-      const [packageName, methodName] = topKey.split(".");
+      const [packageName] = topKey.split(".");
       for (const [methodKey, methodDef] of Object.entries(anyDef)) {
         console.log("topKey", topKey);
         console.log("methodDef", methodKey, methodDef);

@@ -2,7 +2,7 @@ import path from "path";
 import * as ProtoLoader from "@grpc/proto-loader";
 import * as grpc from "@grpc/grpc-js";
 import * as TsProtoGreeter from "./proto/greeter";
-import { monkeyPatchPackageDefWithTsProtoSerializers } from "./monkey-patch";
+import { monkeyPatchPackageDefWithTsProtoSerializers, TsProtoPackages } from "./monkey-patch";
 
 const PROTO_OPTIONS = {
   keepCase: true,
@@ -16,10 +16,13 @@ const PROTO_OPTIONS = {
 const PROTO_PATH = path.resolve(__dirname, path.join(__dirname, "../src/proto/greeter.proto"));
 const packageDefinition = ProtoLoader.loadSync(PROTO_PATH, PROTO_OPTIONS);
 
-// Monkey patch proto
-monkeyPatchPackageDefWithTsProtoSerializers(packageDefinition, {
+// Build packages from ts proto generated code
+const tsProtoPackages: TsProtoPackages = {
   greet: TsProtoGreeter,
-});
+};
+
+// Monkey patch proto
+monkeyPatchPackageDefWithTsProtoSerializers(packageDefinition, tsProtoPackages);
 
 // console.log("packageDefinition", packageDefinition);
 
