@@ -1,7 +1,6 @@
 import * as grpc from "@grpc/grpc-js";
 import * as ProtoLoader from "@grpc/proto-loader";
 import { Writer, Reader } from "protobufjs/minimal";
-import { Greeter } from "./proto/greeter";
 
 type ServiceFn<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>;
 
@@ -10,16 +9,6 @@ export type PatchServiceImpl<T> = {
     ? (call: grpc.ServerUnaryCall<TRequest, TResponse>, callback: grpc.sendUnaryData<TResponse>) => void
     : never;
 };
-
-// Create service implementation
-const serviceImpl: PatchServiceImpl<Greeter> = {
-  SayHello(call: any, callback: any) {
-    console.log("SayHelloSayHello", call.request);
-    callback(null, { message: "dsfadf" });
-  },
-};
-
-export type olle = typeof serviceImpl;
 
 export type TsProtoPackages = { [packageName: string]: any };
 
